@@ -10,17 +10,17 @@ block header
 block content
 	form.form-horizontal(role='form')	
 		div.row
-			h4.col-md-2 Question
-			h4.col-md-6 Response
-			h4.col-md-4 Additional Information
+			h4.col-sm-2 Question
+			h4.col-sm-6 Response
+			h4.col-sm-4 Additional Information
 		div.row 
 			hr			
 		div.form-group.row(ng-repeat='q in questions')
-			label.col-md-2.control-label(for='{{q.title}}') {{q.title}}		
-			div.col-md-6(ng-switch, on='q.type')	
+			label.col-sm-2.control-label(for='{{q.title}}') {{q.title}}		
+			div.col-sm-6(ng-switch, on='q.type')	
 				toggle-switch(ng-switch-when='checkbox', model='responses[q.id]')
 				input.form-control(ng-switch-when='text', type='text', ng-model='responses[q.id]')						
-			div.col-md-4
+			div.col-sm-4
 				input(type='file', accept='image/*;capture=camera')				
 			
 	
