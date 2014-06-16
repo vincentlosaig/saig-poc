@@ -21,3 +21,6 @@ block content
 			div.col-sm-10(ng-switch, on='q.type')	
 				toggle-switch(ng-switch-when='checkbox', model='responses[q.id]')
 				input.form-control(ng-switch-when='text', type='text', ng-model='responses[q.id]')						
+		
+		input(type='file', accept='image/*;capture=camera')
+	
