@@ -1,0 +1,23 @@
+extends layout
+
+block header
+	div.navbar-header
+		button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+			span.sr-only Toggle Navigation
+			span.icon-bar
+	div(class='collapse navbar-collapse')
+		ul(class='nav navbar-nav')
+			li
+				a(href='/', class='btn btn-default navbar-btn')
+					span(class='glyphicon glyphicon-home')  Home
+		ul(class='nav navbar-nav navbar-right')
+			li
+				a(ng-click='submit(responses)', class='btn btn-default navbar-btn')
+					span(class='glyphicon glyphicon-floppy-disk')  Save
+block content
+	form.form-horizontal(role='form')
+		div.form-group(ng-repeat='q in questions')
+			label(for='{{q.title}}', class='col-sm-2 control-label') {{q.title}}		
+			div.col-sm-10(ng-switch, on='q.type')	
+				toggle-switch(ng-switch-when='checkbox', model='responses[q.id]')
+				input.form-control(ng-switch-when='text', type='text', ng-model='responses[q.id]')						

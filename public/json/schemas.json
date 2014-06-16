@@ -1,0 +1,30 @@
+{
+	"schema" : {				
+		"audit" : {
+			"questions": [
+				{
+					"id" : 1,
+					"title": "Lorem ipsum",
+					"type": "checkbox"
+				},
+				{
+					"id" : 2,
+					"title": "Sed egestas",
+					"type": "text"
+				},
+				{
+					"id" : 3,
+					"title": "Test",
+					"type": "checkbox"
+				},
+				{
+					"id" : 4,
+					"title" : "Another test",
+					"type" : "text"
+				}
+			],
+			"created" : "2014-06-16 09:45:00",
+			"created-by" : "Vincent Lo"
+		}	
+	}
+}
