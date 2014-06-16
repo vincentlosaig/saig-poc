@@ -1,28 +1,26 @@
 extends layout
 
 block header
-	div.navbar-header
-		button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-			span.sr-only Toggle Navigation
-			span.icon-bar
-			span.icon-bar
-			span.icon-bar
-	div(class='navbar-collapse collapse')
-		ul(class='nav navbar-nav')
-			li
-				a(href='/', class='btn btn-default navbar-btn')
-					span(class='glyphicon glyphicon-home')  Home
-		ul(class='nav navbar-nav navbar-right')
-			li
-				a(ng-click='submit(responses)', class='btn btn-default navbar-btn')
-					span(class='glyphicon glyphicon-floppy-disk')  Save
+	div.navbar-header.pull-left
+		a.btn.btn-default.btn-lg.navbar-btn(href='/')
+			span.glyphicon.glyphicon-home  Home		
+	div.navbar-header.pull-right		
+		a.btn.btn-default.btn-lg.navbar-btn(ng-click='submit(responses)')
+			span.glyphicon.glyphicon-floppy-disk  Save
 block content
-	form.form-horizontal(role='form')
-		div.form-group(ng-repeat='q in questions')
-			label(for='{{q.title}}', class='col-sm-2 control-label') {{q.title}}		
-			div.col-sm-10(ng-switch, on='q.type')	
+	form.form-horizontal(role='form')	
+		div.row
+			h4.col-md-2 Question
+			h4.col-md-6 Response
+			h4.col-md-4 Additional Information
+		div.row 
+			hr			
+		div.form-group.row(ng-repeat='q in questions')
+			label.col-md-2.control-label(for='{{q.title}}') {{q.title}}		
+			div.col-md-6(ng-switch, on='q.type')	
 				toggle-switch(ng-switch-when='checkbox', model='responses[q.id]')
 				input.form-control(ng-switch-when='text', type='text', ng-model='responses[q.id]')						
-		
-		input(type='file', accept='image/*;capture=camera')
+			div.col-md-4
+				input(type='file', accept='image/*;capture=camera')				
+			
 	
