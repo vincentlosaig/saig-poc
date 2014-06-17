@@ -3,7 +3,9 @@ extends layout
 block header
 	div.navbar-header.pull-left
 		a.btn.btn-default.btn-md.navbar-btn(href='/')
-			span.glyphicon.glyphicon-home  Home		
+			span.glyphicon.glyphicon-home
+		button.btn.btn-default.btn-md.navbar-btn#onlineStatus
+			span.glyphicon.glyphicon-globe
 	div.navbar-header.pull-right	
 		a.btn.btn-default.btn-md.navbar-btn#uploadButton(ng-click='upload(responses)')
 			span.glyphicon.glyphicon-upload  Upload	
@@ -19,9 +21,16 @@ block content
 		{{failureMessage}}
 	form.form-horizontal(role='form')			
 		div.form-group.row(ng-repeat='q in questions')
-			label.col-xs-4(for='{{q.title}}') {{q.title}}		
-			div.col-xs-8(ng-switch, on='q.type')	
-				toggle-switch(ng-switch-when='checkbox', model='responses[q.id]')
-				input.form-control(ng-switch-when='text', type='text', ng-model='responses[q.id]')						
-		input(type='file', accept='image/*;capture=camera')
-	p
+			label.col-md-4(for='{{q.title}}') {{q.title}}		
+			div.col-md-8(ng-switch, on='q.type')	
+				toggle-switch(ng-switch-when='checkbox', model='responses[q.id]', on-label='Yes', off-label='No')
+				input.form-control(ng-switch-when='text', type='text', ng-model='responses[q.id]')
+				textarea.form-control(ng-switch-when='textarea', ng-model='responses[q.id]', rows='10')
+				div(ng-switch-when='radio')
+					label.checkbox-inline(ng-repeat='o in q.options')
+						input(type='radio', ng-model='responses[q.id]', ng-value='o.title', value='o.title')  
+						|  {{o.title}}
+						
+	div.row
+		p.col-md-12
+			input(type='file', accept='image/*;capture=camera')
