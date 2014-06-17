@@ -2,12 +2,12 @@ extends layout
 
 block header
 	div.navbar-header.pull-left
-		a.btn.btn-default.btn-lg.navbar-btn(href='/')
+		a.btn.btn-default.btn-md.navbar-btn(href='/')
 			span.glyphicon.glyphicon-home  Home		
 	div.navbar-header.pull-right	
-		a.btn.btn-default.btn-lg.navbar-btn#uploadButton(ng-click='upload(responses)')
+		a.btn.btn-default.btn-md.navbar-btn#uploadButton(ng-click='upload(responses)')
 			span.glyphicon.glyphicon-upload  Upload	
-		a.btn.btn-default.btn-lg.navbar-btn#saveButton(ng-click='submit(responses, files)')
+		a.btn.btn-default.btn-md.navbar-btn#saveButton(ng-click='submit(responses, files)')
 			span.glyphicon.glyphicon-floppy-disk  Save
 
 block content
@@ -17,18 +17,11 @@ block content
 	div.alert.alert-danger.alert-dismissable(ng-show='failureMessage != null') 
 		button.close(type='button', data-hide='alert', aria-hidden="true")&times;
 		{{failureMessage}}
-	form.form-horizontal(role='form')	
-		div.row
-			h4.col-xs-2 Question
-			h4.col-xs-6 Response
-			h4.col-xs-4 Additional Information
-		div.row 
-			hr			
+	form.form-horizontal(role='form')			
 		div.form-group.row(ng-repeat='q in questions')
-			label.col-xs-2(for='{{q.title}}') {{q.title}}		
-			div.col-xs-6(ng-switch, on='q.type')	
+			label.col-xs-4(for='{{q.title}}') {{q.title}}		
+			div.col-xs-8(ng-switch, on='q.type')	
 				toggle-switch(ng-switch-when='checkbox', model='responses[q.id]')
 				input.form-control(ng-switch-when='text', type='text', ng-model='responses[q.id]')						
-			div.col-xs-4
 		input(type='file', accept='image/*;capture=camera')
 	p

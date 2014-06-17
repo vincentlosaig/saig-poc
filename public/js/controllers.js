@@ -55,6 +55,8 @@ function MainController($scope, $http) {
 		$scope.setMessage("Uploaded", "");
 		console.log("Uploading response: " + JSON.stringify(response));
 		console.log("Uploading files: " + JSON.stringify(file));
+		$("#uploadButton").attr("disabled", true);			
+		$("#uploadButton").removeClass("btn-success");
 		localStorage.clear();
 	};
 	
