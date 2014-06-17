@@ -3,22 +3,22 @@
 		"audit" : {
 			"questions": [
 				{
-					"id" : 1,
+					"id" : 0,
 					"title": "Lorem ipsum",
 					"type": "checkbox"
 				},
 				{
-					"id" : 2,
+					"id" : 1,
 					"title": "Sed egestas",
 					"type": "text"
 				},
 				{
-					"id" : 3,
+					"id" : 2,
 					"title": "Test",
 					"type": "checkbox"
 				},
 				{
-					"id" : 4,
+					"id" : 3,
 					"title" : "Another test",
 					"type" : "text"
 				}
