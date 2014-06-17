@@ -69,7 +69,7 @@ function MainController($scope, $http) {
 			localStorage.setItem("Responses", JSON.stringify($scope.responses));
 			localStorage.setItem("Files", JSON.stringify($scope.files));
 			$("#saveButton").removeClass("btn-danger");
-			$("#uploadButton").attr("disabled", false).addClass("btn-success");
+			$("#uploadButton").attr("disabled", !isOnline).addClass("btn-success");
 		}
 	};
 }
