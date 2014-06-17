@@ -13,6 +13,8 @@ block header
 			span.glyphicon.glyphicon-floppy-disk  Save
 
 block content
+	h2.text-center {{title}}
+	hr
 	div.alert.alert-success.alert-dismissable(ng-show='successMessage != null') 
 		button.close(type='button', data-hide='alert', aria-hidden="true")&times;
 		{{successMessage}}

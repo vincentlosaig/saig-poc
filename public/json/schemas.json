@@ -1,6 +1,7 @@
 {
 	"schema" : {				
-		"audit" : {
+		"qms" : {
+			"title" : "QMS Audit",
 			"questions": [
 				{
 					"id" : 0,

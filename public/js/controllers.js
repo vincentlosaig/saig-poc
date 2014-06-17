@@ -33,14 +33,13 @@ function MainController($scope, $http) {
 
 		if (loaded) {
 			$scope.setMessage("Loaded responses/files from cache", "");
-		} else {
-			$scope.setMessage("", "Could not find responses/files in cache");
 		}
 	}
 	
     $http.get('/json/schemas.json').
 		success(function(data) {
-			$scope.questions = data['schema']['audit'].questions;
+			$scope.questions = data['schema']['qms'].questions;
+			$scope.title = data['schema']['qms'].title;
 		});
 		
 	$scope.$watchCollection('responses', function(newVal, oldVal) {			
@@ -55,8 +54,7 @@ function MainController($scope, $http) {
 		$scope.setMessage("Uploaded", "");
 		console.log("Uploading response: " + JSON.stringify(response));
 		console.log("Uploading files: " + JSON.stringify(file));
-		$("#uploadButton").attr("disabled", true);			
-		$("#uploadButton").removeClass("btn-success");
+		$("#uploadButton").attr("disabled", true).removeClass("btn-success");
 		localStorage.clear();
 	};
 	
@@ -71,8 +69,7 @@ function MainController($scope, $http) {
 			localStorage.setItem("Responses", JSON.stringify($scope.responses));
 			localStorage.setItem("Files", JSON.stringify($scope.files));
 			$("#saveButton").removeClass("btn-danger");
-			$("#uploadButton").attr("disabled", false);			
-			$("#uploadButton").addClass("btn-success");
+			$("#uploadButton").attr("disabled", false).addClass("btn-success");
 		}
 	};
 }
