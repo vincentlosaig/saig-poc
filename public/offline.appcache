@@ -2,7 +2,7 @@ CACHE MANIFEST
       
 # Any updates to the schema must increment the version
 # to trigger a cache update
-# Version 0.9.89
+# Version 0.9.90
 
 CACHE:
 /css/angular-toggle-switch.css
