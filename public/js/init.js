@@ -13,10 +13,10 @@ $(document).ready(function() {
 		
 		if (isOnline) {
 			$("#onlineStatus").removeClass("btn-danger").addClass("btn-success");
-			$("#uploadButton #fileUpload").css("display", "block");
+			$("#uploadButton, #fileUpload").css("display", "inline-block");
 		} else {			
 			$("#onlineStatus").removeClass("btn-success").addClass("btn-danger");
-			$("#uploadButton #fileUpload").css("display", "none");
+			$("#uploadButton, #fileUpload").css("display", "none");
 		}
 	}
 	
