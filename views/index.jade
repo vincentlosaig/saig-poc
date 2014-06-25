@@ -6,10 +6,10 @@ block header
 			span.glyphicon.glyphicon-home
 		button.btn.btn-default.btn-md.navbar-btn#onlineStatus
 			span.glyphicon.glyphicon-globe(title='Connectivity Status')
-		button.btn.btn-default.btn-md.navbar-btn.btn-warning#downloadButton
-			span.glyphicon.glyphicon-download(title='Update Available')
-		button.btn.btn-default.btn-md.navbar-btn.btn-success#latestButton
-			span.glyphicon.glyphicon-ok(title='Cache is up to date')
+		button.btn.btn-default.btn-md.navbar-btn#cacheStatus
+			span.glyphicon.glyphicon-download#downloadIcon(title='Update Available')		
+			span.glyphicon.glyphicon-ok#latestIcon(title='Cache is up to date')
+			image#loadingIcon(src='/images/loading.gif', alt='Checking for updates')
 	div.navbar-header.pull-right	
 		a.btn.btn-default.btn-md.navbar-btn#uploadButton(ng-click='upload(responses)')
 			span.glyphicon.glyphicon-upload  Upload	

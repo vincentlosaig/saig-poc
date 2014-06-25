@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	
 	var isOnline;
+	var requireUpdate = false;
 	
 	$(function(){
 		$("[data-hide]").on("click", function(){
@@ -9,50 +10,76 @@ $(document).ready(function() {
 	});
 	
 	$(function(){
-		$("#downloadButton").on("click", function(){
-			window.location.reload();
+		$("#cacheStatus").on("click", function(){
+			if ($("#downloadIcon").is(":visible")) {
+				window.location.reload();
+			}
 		});
 	});
 	
-	// Check application cache status every 30 seconds
+	// Check application cache status every 3 seconds
 	setInterval(function(){
-		if(isOnline){
-			if(window.applicationCache.status != window.applicationCache.UNCACHED)
-				window.applicationCache.update();
-		 }
-	}, 30000);
+		if (isOnline) {
+			if(!requireUpdate && window.applicationCache.status != window.applicationCache.UNCACHED) {
+				$("#cacheStatus").removeClass("btn-warning").removeClass("btn-success");
+				$("#loadingIcon").show();
+				$("#downloadIcon, #latestIcon").hide();
+				window.applicationCache.update(); // Update the cache in background. Won't take effect until reload.				
+			}
+		}
+	}, 3000);	
 	
 	function reportOnlineStatus() {
 		isOnline = navigator.onLine;
 		
 		if (isOnline) {
 			$("#onlineStatus").removeClass("btn-danger").addClass("btn-success");
-			$("#uploadButton, #fileUpload").css("display", "inline-block");
+			$("#uploadButton, #fileUpload").show();
 		} else {			
 			$("#onlineStatus").removeClass("btn-success").addClass("btn-danger");
-			$("#uploadButton, #fileUpload").css("display", "none");
+			$("#uploadButton, #fileUpload").hide();
 		}
 	}
 	
-	function updateCacheStatus(updateAvailable) {
-		$("#downloadButton").css("display", updateAvailable ? "inline-block" : "none");
-		$("#latestButton").css("display", updateAvailable ? "none" : "inline-block");		
+	function updateCacheStatus() {				
+		if (window.applicationCache.status == window.applicationCache.UPDATEREADY && isOnline) {
+			$("#cacheStatus").removeClass("btn-success").addClass("btn-warning");
+			$("#downloadIcon").show();
+			$("#latestIcon, #loadingIcon").hide();		
+			requireUpdate = true;
+		} else {
+			$("#cacheStatus").removeClass("btn-warning").addClass("btn-success");
+			$("#latestIcon").show();
+			$("#downloadIcon, #loadingIcon").hide();
+		}
 	}
 	
+	// Set up event listeners
 	if (window.applicationCache) {
 		window.addEventListener("online", function(e) {
 			reportOnlineStatus();
+			updateCacheStatus();
 		}, true);
 		
 		window.addEventListener("offline", function(e) {
 			reportOnlineStatus();
+			updateCacheStatus();
 		}, true);
 		
 		window.applicationCache.addEventListener("updateready", function(e) {
-			updateCacheStatus(true);
+			updateCacheStatus();
 		}, true);		
 		
+		window.applicationCache.addEventListener("checking", function(e) {
+			updateCacheStatus();			
+		}, true);
+		
+		window.applicationCache.addEventListener("noupdate", function(e) {
+			updateCacheStatus();			
+		}, true);
+		
 		reportOnlineStatus();
-		updateCacheStatus(false);
+		updateCacheStatus();
+		$("#loadingButton").hide();
 	}
 });
