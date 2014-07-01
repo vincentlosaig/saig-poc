@@ -1,3 +1,22 @@
+div#header
+	div.navbar.navbar-default.navbar-static-top(role='navigation')
+		div.container
+			div.navbar-header.pull-left
+			a.btn.btn-default.btn-md.navbar-btn(href='/')
+				span.glyphicon.glyphicon-home
+			button.btn.btn-default.btn-md.navbar-btn#onlineStatus
+				span.glyphicon.glyphicon-globe(title='Connectivity Status')
+			button.btn.btn-default.btn-md.navbar-btn#cacheStatus
+				span.glyphicon.glyphicon-download#downloadIcon(title='Update Available')		
+				span.glyphicon.glyphicon-ok#latestIcon(title='Cache is up to date')
+				image#loadingIcon(src='/images/loading.gif', alt='Checking for updates')
+			div.navbar-header.pull-right	
+				a.btn.btn-default.btn-md.navbar-btn#uploadButton(ng-click='upload(responses)')
+					span.glyphicon.glyphicon-upload  Upload	
+				a.btn.btn-default.btn-md.navbar-btn#saveButton(ng-click='submit(responses, files)')
+					span.glyphicon.glyphicon-floppy-disk  Save
+
+
 div.container
 	h2.text-center {{title}}
 	hr
@@ -24,7 +43,7 @@ div.container
 		div(style='float:left; margin: 20px;')			
 			select.form-control(id='perPage', ng-model='countPerPage', ng-change='pageChanged()')
 				option(value='{{allQuestions.length}}') All
-				option(ng-repeat='n in [1, 2, 3, 4, 5, 10]', value='{{n}}')	{{n}}
+				option(ng-repeat='n in [1, 2, 3, 4, 5, allQuestions.length]', value='{{n}}')	{{n}}
 			| Per Page
 		div
 			pagination(ng-show='usePages', total-items='allQuestions.length', items-per-page='countPerPage', ng-model='currentPage', ng-change='pageChanged()', next-text='>', previous-text='<', boundary-links='true', first-text='<<', last-text='>>')		
