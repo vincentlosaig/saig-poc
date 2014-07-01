@@ -46,7 +46,7 @@ div.container
 				option(ng-repeat='n in [1, 2, 3, 4, 5, allQuestions.length]', value='{{n}}')	{{n}}
 			| Per Page
 		div
-			pagination(ng-show='usePages', total-items='allQuestions.length', items-per-page='countPerPage', ng-model='currentPage', ng-change='pageChanged()', next-text='>', previous-text='<', boundary-links='true', first-text='<<', last-text='>>')		
+			pagination(ng-show='usePages', total-items='allQuestions.length', items-per-page='countPerPage', ng-model='currentPage', ng-change='pageChanged()', max-size='4', rotate='false', next-text='>', previous-text='<', boundary-links='true', first-text='<<', last-text='>>')		
 			
 	div.row
 		p.col-md-12
