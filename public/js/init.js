@@ -1,5 +1,4 @@
-$(document).ready(function() {
-	
+function initialize() {		
 	var isOnline;
 	var requireUpdate = false;
 	
@@ -16,8 +15,8 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
-	// Check application cache status every 3 seconds
+
+	// Check application cache status every 10 seconds
 	setInterval(function(){
 		if (isOnline) {
 			if(!requireUpdate && window.applicationCache.status != window.applicationCache.UNCACHED) {
@@ -27,7 +26,7 @@ $(document).ready(function() {
 				window.applicationCache.update(); // Update the cache in background. Won't take effect until reload.				
 			}
 		}
-	}, 3000);	
+	}, 10000);	
 	
 	function reportOnlineStatus() {
 		isOnline = navigator.onLine;
@@ -81,5 +80,10 @@ $(document).ready(function() {
 		reportOnlineStatus();
 		updateCacheStatus();
 		$("#loadingButton").hide();
-	}
-});
+	}	
+}
+
+function initializeErrorPage() {
+	initialize();
+	$("#saveButton, #uploadButton").hide();
+}

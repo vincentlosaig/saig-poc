@@ -29,7 +29,12 @@ if (env === 'production') {
 }
 
 app.get('/', function(req,res){
-    res.render('index');
+    res.render('layout');
+});
+
+app.get('/partials/:name', function (req, res) {
+	var name = req.params.name;
+	res.render('partials/' + name);
 });
 
 // JSON API
@@ -37,8 +42,9 @@ app.get('/json/schemas.json');
 
 // redirect all others to the index (HTML5 history)
 app.get('*', function(req,res){
-    res.render('error');
+    res.render('layout');
 });
+
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log("Express server listening on port " + app.get('port'));

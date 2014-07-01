@@ -1,0 +1,39 @@
+div.container
+	h2.text-center {{title}}
+	hr
+	div.alert.alert-success.alert-dismissable(ng-show='successMessage != null') 
+		button.close(type='button', data-hide='alert', aria-hidden="true")&times;
+		{{successMessage}}
+	div.alert.alert-danger.alert-dismissable(ng-show='failureMessage != null') 
+		button.close(type='button', data-hide='alert', aria-hidden="true")&times;
+		{{failureMessage}}
+
+	form.form-horizontal(role='form')			
+		div.form-group.row(ng-repeat='q in questions')
+			label.col-md-4(for='{{q.title}}') {{q.title}}		
+			div.col-md-8(ng-switch='q.type')				
+				toggle-switch(ng-switch-when='checkbox', model='responses[q.id]', on-label='Yes', off-label='No')
+				input.form-control(ng-switch-when='text', type='text', ng-model='responses[q.id]')
+				textarea.form-control(ng-switch-when='textarea', ng-model='responses[q.id]', rows='10')
+				div(ng-switch-when='radio')
+					label.checkbox-inline(ng-repeat='o in q.options')
+						input(type='radio', ng-model='responses[q.id]', ng-value='o.title', value='o.title')  
+						|  {{o.title}}
+			
+	div.row.text-center
+		div(style='float:left; margin: 20px;')			
+			select.form-control(id='perPage', ng-model='countPerPage', ng-change='pageChanged()')
+				option(value='{{allQuestions.length}}') All
+				option(ng-repeat='n in [1, 2, 3, 4, 5, 10]', value='{{n}}')	{{n}}
+			| Per Page
+		div
+			pagination(ng-show='usePages', total-items='allQuestions.length', items-per-page='countPerPage', ng-model='currentPage', ng-change='pageChanged()', next-text='>', previous-text='<', boundary-links='true', first-text='<<', last-text='>>')		
+			
+	div.row
+		p.col-md-12
+			input#fileUpload(type='file', accept='image/*;capture=camera')
+
+	script.
+		$(document).ready(function() {
+			initialize();
+		});

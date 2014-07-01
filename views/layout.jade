@@ -1,5 +1,5 @@
 !!!
-html(ng-app='auditApp', manifest='/offline.appcache')
+html(manifest='/offline.appcache')
 	head
 		meta(charset='utf8', name='viewport', content='width=device-width, initial-scale=1')
 		base(href='/')
@@ -9,13 +9,26 @@ html(ng-app='auditApp', manifest='/offline.appcache')
 		link(rel='stylesheet', href='/css/angular-toggle-switch-bootstrap.css')
 		link(rel='stylesheet', href='/css/site.css')
 		
-	body(ng-controller='MainController')
-		div.navbar.navbar-default.navbar-static-top(role='navigation')
-			div.container
-				block header
-		
-		div.container
-			block content		
+	body(ng-app='auditApp')
+		div#header
+			div.navbar.navbar-default.navbar-static-top(role='navigation')
+				div.container
+					div.navbar-header.pull-left
+					a.btn.btn-default.btn-md.navbar-btn(href='/')
+						span.glyphicon.glyphicon-home
+					button.btn.btn-default.btn-md.navbar-btn#onlineStatus
+						span.glyphicon.glyphicon-globe(title='Connectivity Status')
+					button.btn.btn-default.btn-md.navbar-btn#cacheStatus
+						span.glyphicon.glyphicon-download#downloadIcon(title='Update Available')		
+						span.glyphicon.glyphicon-ok#latestIcon(title='Cache is up to date')
+						image#loadingIcon(src='/images/loading.gif', alt='Checking for updates')
+					div.navbar-header.pull-right	
+						a.btn.btn-default.btn-md.navbar-btn#uploadButton(ng-click='upload(responses)')
+							span.glyphicon.glyphicon-upload  Upload	
+						a.btn.btn-default.btn-md.navbar-btn#saveButton(ng-click='submit(responses, files)')
+							span.glyphicon.glyphicon-floppy-disk  Save
+	
+		div(ng-view)
 		
 		div#footer
 			div.container				

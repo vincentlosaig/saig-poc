@@ -2,7 +2,7 @@ CACHE MANIFEST
       
 # Any updates to the schema must increment the version
 # to trigger a cache update
-# Version 1.0.2
+# Version 1.6.0
 
 CACHE:
 /css/angular-toggle-switch.css
@@ -10,8 +10,15 @@ CACHE:
 /css/bootstrap.min.css
 /css/site.css
 
+/partials/index
+/partials/error
+
 /js/angular.min.js
+/js/angular.min.js.map
+/js/angular-route.min.js
+/js/angular-route.min.js.map
 /js/angular-toggle-switch.min.js
+/js/ui-bootstrap-tpls-0.11.0.min.js
 /js/app.js
 /js/controllers.js
 /js/directives.js
@@ -20,6 +27,8 @@ CACHE:
 /js/services.js
 /js/bootstrap.min.js
 /js/init.js
+/js/hammer.min.js
+/js/hammer.min.map
 
 /fonts/glyphicons-halflings-regular.eot
 /fonts/glyphicons-halflings-regular.svg

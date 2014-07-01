@@ -1,6 +1,6 @@
 'use strict';
 
-function MainController($scope, $http) {
+function MainController($scope, $http, $routeParams, $location) {
 	$scope.responses = {};
 	$scope.files = {};	
 	
@@ -36,9 +36,24 @@ function MainController($scope, $http) {
 		}
 	}
 	
+	$scope.pageChanged = function() {
+		$location.path("/" + $scope.currentPage + "/" + $scope.countPerPage, false);
+	};
+	
     $http.get('/json/schemas.json').
 		success(function(data) {
-			$scope.questions = data['schema']['qms'].questions;
+			$scope.allQuestions = data['schema']['qms'].questions;
+			$scope.currentPage = parseInt(1, 10);
+			$scope.countPerPage = parseInt($scope.allQuestions.length, 10);
+
+			if (typeof $routeParams.page !== "undefined") {
+				$scope.currentPage = parseInt($routeParams.page, 10);
+			}
+			if (typeof $routeParams.count !== "undefined")  {
+				$scope.countPerPage = parseInt($routeParams.count, 10);
+				$scope.usePages = true;
+			}
+			$scope.questions = $scope.allQuestions.slice((parseInt($scope.currentPage, 10) - 1) * parseInt($scope.countPerPage, 10), ((parseInt($scope.currentPage, 10) - 1) * parseInt($scope.countPerPage, 10)) + parseInt($scope.countPerPage, 10));
 			$scope.title = data['schema']['qms'].title;
 		});
 		
