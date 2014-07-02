@@ -37,7 +37,7 @@ function MainController($scope, $http, $routeParams, $location) {
 	}
 	
 	$scope.pageChanged = function() {
-		$location.path("/" + $scope.currentPage + "/" + $scope.countPerPage, false);
+		$location.path("/", false).search("page", $scope.currentPage).search("count", $scope.countPerPage);
 	};
 	
     $http.get('/json/schemas.json').

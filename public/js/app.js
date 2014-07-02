@@ -9,7 +9,7 @@ angular.module('auditApp', ['ngRoute', 'ui.bootstrap', 'auditApp.filters', 'audi
 				templateUrl: 'partials/index',
 				controller: 'MainController'
 			}).
-			when('/:page/:count', {
+			when('/?page=:page&count=:count', {
 				templateUrl: 'partials/index',
 				controller: 'MainController'
 			}).
