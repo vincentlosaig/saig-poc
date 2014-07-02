@@ -9,10 +9,6 @@ angular.module('auditApp', ['ngRoute', 'ui.bootstrap', 'auditApp.filters', 'audi
 				templateUrl: 'partials/index',
 				controller: 'MainController'
 			}).
-			when('/?page=:page&count=:count', {
-				templateUrl: 'partials/index',
-				controller: 'MainController'
-			}).
 			otherwise({
 				templateUrl: 'partials/error',
 				controller: 'MainController'

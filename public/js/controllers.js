@@ -16,7 +16,7 @@ function MainController($scope, $http, $routeParams, $location) {
 		}
 	};	
 	
-	if (typeof window.localStorage != "undefined") {
+	if (typeof window.localStorage !== "undefined") {
 		var loaded = false;
 		
 		if (localStorage.getItem("Responses") != null) {
@@ -37,24 +37,24 @@ function MainController($scope, $http, $routeParams, $location) {
 	}
 	
 	$scope.pageChanged = function() {
-		$location.path("/", false).search("page", $scope.currentPage).search("count", $scope.countPerPage);
+		if (typeof window.localStorage != "undefined") {
+			localStorage.setItem("Page", $scope.currentPage);
+			localStorage.setItem("Count", $scope.countPerPage);			
+		}
+		$scope.displayQuestions();
+	};
+	
+	$scope.displayQuestions = function() {
+		$scope.questions = $scope.allQuestions.slice((parseInt($scope.currentPage, 10) - 1) * parseInt($scope.countPerPage, 10), ((parseInt($scope.currentPage, 10) - 1) * parseInt($scope.countPerPage, 10)) + parseInt($scope.countPerPage, 10));
 	};
 	
     $http.get('/json/schemas.json').
 		success(function(data) {
 			$scope.allQuestions = data['schema']['qms'].questions;
-			$scope.currentPage = parseInt(1, 10);
-			$scope.countPerPage = parseInt($scope.allQuestions.length, 10);
-
-			if (typeof $routeParams.page !== "undefined") {
-				$scope.currentPage = parseInt($routeParams.page, 10);
-			}
-			if (typeof $routeParams.count !== "undefined")  {
-				$scope.countPerPage = parseInt($routeParams.count, 10);
-				$scope.usePages = true;
-			}
-			$scope.questions = $scope.allQuestions.slice((parseInt($scope.currentPage, 10) - 1) * parseInt($scope.countPerPage, 10), ((parseInt($scope.currentPage, 10) - 1) * parseInt($scope.countPerPage, 10)) + parseInt($scope.countPerPage, 10));
+			$scope.currentPage = localStorage.getItem("Page") != null ? parseInt(localStorage.getItem("Page"), 10) : parseInt(1, 10);
+			$scope.countPerPage = localStorage.getItem("Count") != null ? parseInt(localStorage.getItem("Count"), 10) : parseInt($scope.allQuestions.length, 10);		
 			$scope.title = data['schema']['qms'].title;
+			$scope.displayQuestions();
 		});
 		
 	$scope.$watchCollection('responses', function(newVal, oldVal) {			
@@ -79,7 +79,7 @@ function MainController($scope, $http, $routeParams, $location) {
 		$scope.responses = angular.copy(response);		
 		$scope.files = angular.copy(file);
 		
-		if (typeof window.localStorage != "undefined") {
+		if (typeof window.localStorage !== "undefined") {
 			$scope.setMessage("Saved", "");
 			localStorage.setItem("Responses", JSON.stringify($scope.responses));
 			localStorage.setItem("Files", JSON.stringify($scope.files));
